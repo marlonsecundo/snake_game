@@ -1,4 +1,4 @@
-extends Sprite
+extends Area2D
 
 var delay = 0.3
 var time = 0;
@@ -18,7 +18,7 @@ var screenEdges = {
 };
 
 
-var textureSize = self.texture.get_size() / 2;
+var textureSize = 0;
 var gameGrid;
 var nextPosition = Vector2.ZERO;
 
@@ -26,6 +26,7 @@ func init(grid):
 	gameGrid = grid;
 
 func _ready():
+	textureSize = $sprite.texture.get_size() / 2;
 	screenEdges = {
 		"LEFT" : 0,
 		"TOP" : 0,
@@ -93,3 +94,8 @@ func setPositionY(y):
 	
 	
 	
+
+
+func _on_snake_area_shape_entered(area_id, area, area_shape, self_shape):
+	delay -= 0.01;
+	pass # Replace with function body.

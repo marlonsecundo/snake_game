@@ -1,7 +1,10 @@
 extends Area2D
 
+const Tail = preload("res://tail.tscn");
+
 var delay = 0.3
 var time = 0;
+var dificulty = 0.001;
 
 var edgesPosition = {
 	"left": 0,
@@ -18,9 +21,14 @@ var screenEdges = {
 };
 
 
+
+
+
 var textureSize = 0;
 var gameGrid;
 var nextPosition = Vector2.ZERO;
+var prevPosition = Vector2.ZERO;
+var tail;
 
 func init(grid):
 	gameGrid = grid;
@@ -36,6 +44,7 @@ func _ready():
 	
 	position.x = screenEdges.LEFT + textureSize.x;
 	position.y = screenEdges.TOP + textureSize.y;
+	
 
 func _process(delta):
 	
@@ -80,9 +89,13 @@ func _handlePosition():
 		
 func addPosition(gridPosition):
 	
+	prevPosition = position;
 	position.x += gameGrid.cellSize.x * gridPosition.x;
 	position.y += gameGrid.cellSize.y * gridPosition.y;
 	
+	if (tail != null):
+		tail.setPosition(prevPosition);
+		
 	pass
 
 func setPositionX(x):
@@ -93,9 +106,20 @@ func setPositionY(y):
 	position.y = gameGrid.cellSize.y * y + textureSize.y;
 	
 	
+func addTail(t):
+	if (tail == null):
+		tail = t;
+		tail.setPosition(prevPosition);		
+	else:
+		tail.addTail(t);
+
+func removeTail():
+	if (tail != null):
+		tail.removeTail();
+		tail = null;
 	
 
 
 func _on_snake_area_shape_entered(area_id, area, area_shape, self_shape):
-	delay -= 0.01;
+	delay -= dificulty;
 	pass # Replace with function body.

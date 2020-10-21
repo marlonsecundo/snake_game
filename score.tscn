@@ -16,3 +16,17 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="prevScoreLabel" type="Label" parent="."]
+margin_left = 20.9381
+margin_top = 600.457
+margin_right = 150.938
+margin_bottom = 614.457
+text = "Pontuação Anterior: 0"
+
+[node name="bestScore" type="Label" parent="."]
+margin_left = 20.8395
+margin_top = 580.737
+margin_right = 151.84
+margin_bottom = 594.737
+text = "Melhor Pontuação: 0"
